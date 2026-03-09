@@ -137,7 +137,7 @@ cd admin && npm install && npm run dev
 
 ## Demo notes
 
-- **Admin login:** `admin@example.com` / `testing123`
+- **Admin demo:** Credentials available on request (not published for security).
 - **Sample CSV:** `docs/sample-format.csv`
 - **Date requirement:** Update all appointment dates in the sample CSV to **today’s date** before uploading, or the UI will show “no data.”
 
