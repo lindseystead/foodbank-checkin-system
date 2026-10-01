@@ -1,10 +1,8 @@
 # Foodbank Check-In & Appointment System
 
-Day-of operations software for a not-for-profit food bank: multilingual client kiosk, staff admin, and an Express API over Supabase Postgres with Link2Feed interoperability (CSV primary; optional HMAC-signed API sync).
+Public snapshot of the food-bank kiosk and staff dashboard (`client/`, `admin/`). The Express API, migrations, and secrets stay in a private repo.
 
-Built for front-desk use at up to **~130 client check-ins per day**.
-
-This repository is a **public snapshot of the production frontends** (`client/`, `admin/`) plus docs. The Express API, migrations, and secrets stay private.
+The product is day-of check-in for a not-for-profit food bank: a multilingual kiosk, a staff admin, and Link2Feed CSV import. It was designed for a front desk handling up to about 130 check-ins a day.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://reactjs.org/)
@@ -20,7 +18,7 @@ This repository is a **public snapshot of the production frontends** (`client/`,
 
 Demo login: `admin@example.com` / `testing123`
 
-Day-of appointment rows expire after ~24 hours. If the dashboard looks empty, upload a CSV first (step 2 below).
+Day-of appointment rows expire after about 24 hours. Client profiles are a separate store and are not deleted on that timer. If the dashboard looks empty, upload a CSV first (step 2 below).
 
 ### Staff flow (admin)
 
@@ -63,7 +61,7 @@ End-to-end recording (login → CSV → admin tour → kiosk → ticket):
 | **Replaces** | Paper day-of lists and ad hoc appointment handling |
 | **Integrates with** | Existing Link2Feed exports (and optional Link2Feed API) |
 
-Constraints that shaped the design: PII for a vulnerable population, multi-tenant isolation, large touch targets for kiosk use, seven languages, short retention for day-of appointment payloads, and compatibility with Link2Feed workflows staff already use.
+Constraints that shaped the design: PII for a vulnerable population, large touch targets for kiosk use, seven languages, short retention for day-of appointment rows, and compatibility with Link2Feed workflows staff already use.
 
 ---
 
@@ -89,11 +87,11 @@ API              Express routes / controllers
        ↓
 Domain services  CSV · Link2Feed · tickets · appointment scheduling
        ↓
-Data access      unifiedStore adapter  →  tenantStore  →  Supabase Postgres (+ RLS)
+Data access      unifiedStore adapter  →  Supabase Postgres
 ```
 
-- Controllers call a stable store API (`unifiedStore`). Persistence moved from in-memory maps to tenant-scoped Postgres without rewriting call sites.
-- Day-of appointment rows use ~24h `expires_at` and are purged on an interval.
+- Controllers call a stable store API (`unifiedStore`). Persistence moved from in-memory maps to Postgres.
+- Day-of appointment rows use an `expires_at` of about 24 hours and are purged on an interval. Client profiles stay.
 - **Link2Feed CSV (primary)** and **optional HMAC API sync** both land in the same unified records — see [`docs/link2feed-integration.md`](docs/link2feed-integration.md).
 
 Hosting: Vercel (frontends), Google Cloud Run (API), Supabase (Auth + Postgres).
@@ -135,7 +133,7 @@ More detail: [`docs/architecture.md`](docs/architecture.md) · [`docs/link2feed-
 | Client | React 18, TypeScript, Vite, Chakra UI, i18next |
 | Admin | React 18, TypeScript, Vite, Chakra UI, React Router, Recharts, Supabase Auth |
 | API | Node 20, Express 5, TypeScript, Day.js, Helmet, Supabase JS |
-| Data | Supabase Postgres + RLS |
+| Data | Supabase Postgres |
 | Hosting | Vercel, Cloud Run, Supabase |
 
 ---
