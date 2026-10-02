@@ -1,10 +1,9 @@
 /**
  * @fileoverview Behavioral profile card for the Client Detail page.
  *
- * Reads from `GET /api/admin/t/clients/:id/profile` (returns from
- * `clientsStore.getClientProfile`). Surfaces the longitudinal behavioral
- * data that lives in the persistent `clients` + `client_visits` tables —
- * stuff that survives the 24h purge of `records`.
+ * Reads from `GET /api/admin/t/clients/:id/profile`.
+ * Shows behavioral data stored on `clients` and `client_visits`.
+ * Those rows stay when day-of `records` expire.
  *
  * Includes a volunteer-tag editor (preset chips + remove) so the staff
  * can attach lightweight observations without burdening clients with

@@ -12,6 +12,6 @@ Manual / kiosk check-in        ─┘         │
                     Client kiosk ─────────┘ (lookup + special requests + confirmation)
 ```
 
-Day-of appointment payloads expire (~24h). Client profiles and volunteer/consent data persist longer under RLS in the private backend.
+Day-of appointment payloads expire after about 24 hours. Client profiles and volunteer records are stored separately.
 
 Link2Feed CSV vs optional API detail: [`link2feed-integration.md`](link2feed-integration.md).

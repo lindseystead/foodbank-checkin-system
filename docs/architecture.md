@@ -11,7 +11,7 @@ API              Express routes / controllers
        ↓
 Domain services  CSV · Link2Feed · tickets · appointment scheduler · consent / data-rights
        ↓
-Data access      unifiedStore adapter → tenantStore → Supabase Postgres (+ RLS)
+Data access      unifiedStore adapter → Supabase Postgres
 ```
 
 ### Presentation (this repo)
@@ -44,11 +44,10 @@ Data access      unifiedStore adapter → tenantStore → Supabase Postgres (+ R
 
 | Concern | Implementation |
 |---------|----------------|
-| Adapter | `unifiedStore` — stable API for controllers/services |
-| Tenant store | `tenantStore` — Supabase Postgres, `tenantId` scoped |
+| Adapter | `unifiedStore` — stable API for controllers and services |
 | History | Replaced earlier in-memory `Map` stores without rewriting call sites |
-| Day-of TTL | `expires_at` ~24h; purged on an interval |
-| Durable data | Client profiles, volunteer roster/shifts, consent, memberships |
+| Day-of TTL | Appointment rows expire after about 24 hours |
+| Durable data | Client profiles, volunteer roster and shifts, consent, memberships |
 
 ### Link2Feed (private services + admin Settings UI)
 

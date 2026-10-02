@@ -16,6 +16,6 @@ Full walkthrough for the live demo: see **Try the live demo** in the root [READM
 1. Upload a Link2Feed-style CSV for **today’s** appointments (or run Link2Feed API sync).
 2. Clients check in on the kiosk (phone + last name).
 3. Staff monitor check-ins, print tickets, handle help requests.
-4. Day-of rows expire per backend retention (~24h).
+4. Day-of appointment rows expire after about 24 hours. Client profiles stay.
 
 Sample CSV shape: [`sample-format.csv`](sample-format.csv). Replace `Pick Up Date` values with the current local operating date before uploading.
