@@ -140,7 +140,7 @@ More detail: [`docs/architecture.md`](docs/architecture.md) · [`docs/link2feed-
 
 ## Local development
 
-UI only in this repo — point the apps at a running API (or use the live API URL carefully):
+UI only in this repo. Point the apps at a running API, or use the demo:
 
 ```bash
 cd client && npm install && npm run dev
